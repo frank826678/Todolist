@@ -30,15 +30,18 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="qmV-OV-mf0" kind="show" identifier="EditPage" id="uQX-5m-R9i"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7oW-3W-tbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1048.8" y="124.58770614692655"/>
+            <point key="canvasLocation" x="967" y="125"/>
         </scene>
         <!--Text Input View Controller-->
         <scene sceneID="XRu-rh-hf6">
             <objects>
-                <viewController id="qmV-OV-mf0" customClass="TextInputViewController" customModule="Todolist" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditPage" id="qmV-OV-mf0" customClass="TextInputViewController" customModule="Todolist" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5VL-Fx-Fln">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -90,7 +93,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xfd-rO-aGB">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -102,4 +105,7 @@
             <point key="canvasLocation" x="109.59999999999999" y="124.58770614692655"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="uQX-5m-R9i"/>
+    </inferredMetricsTieBreakers>
 </document>

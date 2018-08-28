@@ -9,13 +9,20 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-
+    
+    //var contentArray = [String]()
+    var dataManager = TextInputViewController() //delegate 重要
+    
+    var contentArray = ["2","3","444"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
        let uiNib = UINib(nibName: "TodoTableViewCell", bundle: nil)
         
         tableView.register(uiNib, forCellReuseIdentifier: "frankCell")
+        
+        dataManager.delegate = self //delegate 重要
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +39,7 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return contentArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,10 +47,57 @@ class TableViewController: UITableViewController {
             withIdentifier: "frankCell", for: indexPath) as?
             TodoTableViewCell else {
                 return UITableViewCell() }
-        cell.todoLabel.text = "HELLO"
+        
+        cell.editButton.tag = indexPath.row
+        cell.editButton.addTarget(self, action: #selector(buttonClicked(sender:)), for: .touchUpInside)
+        
+        cell.todoLabel.text = contentArray[indexPath.row]
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //推開畫面用
+        let selectedMessage = contentArray[indexPath.row]
+        
+//        navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        
+//        let detailViewController = DetailViewController.detailViewControllerForProduct(selectedArticle)
+//
+//        navigationController?.pushViewController(detailViewController, animated: true)
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    @objc func buttonClicked(sender: UIButton) {
+        
+        //let buttonRow = sender.tag
+        
+        self.performSegue(withIdentifier: "EditPage", sender: sender.tag)
+    }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tag = sender as! Int
+        let controller = segue.destination as! TextInputViewController
+        
+        //controller.textInput.text = contentArray[tag]
+        controller.textFromHomePage = contentArray[tag]
+        
+        //controller.movieDetail = movieArray[tag]
+    }
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
@@ -99,4 +153,15 @@ class TableViewController: UITableViewController {
     }
     */
 
+}
+
+extension TableViewController: DataEnterDelegate {
+    
+    func userDidEnterInformation(info: String) {
+        
+        contentArray.append(info)
+        
+        self.tableView.reloadData()
+    }
+ 
 }
