@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="101" id="KGk-i7-Jjw" customClass="TodoTableViewCell" customModule="Todolist" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="495" height="150"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="495" height="149.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSs-BN-5bi">
+                        <rect key="frame" x="425" y="40" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="U5Q-10-oNK"/>
+                            <constraint firstAttribute="height" constant="50" id="xyx-KQ-zCi"/>
+                        </constraints>
+                        <state key="normal" title="Edit"/>
+                        <connections>
+                            <action selector="editButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JT9-Vy-1sn"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="232323232323ssajkasjakjkasjsakjsakjsakjsakjsakjsaksjksjksjs" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H64-WF-hbj">
+                        <rect key="frame" x="10" y="40" width="395" height="89.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="H64-WF-hbj" secondAttribute="bottom" constant="20" id="8dH-ea-Mcs"/>
+                    <constraint firstItem="H64-WF-hbj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Lvf-30-NaK"/>
+                    <constraint firstItem="H64-WF-hbj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="Vto-Ec-jAS"/>
+                    <constraint firstAttribute="trailing" secondItem="iSs-BN-5bi" secondAttribute="trailing" constant="20" id="cNR-z4-k1j"/>
+                    <constraint firstItem="iSs-BN-5bi" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="lIj-gO-ndE"/>
+                    <constraint firstItem="iSs-BN-5bi" firstAttribute="leading" secondItem="H64-WF-hbj" secondAttribute="trailing" constant="20" id="u8K-5F-EXc"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="editButton" destination="iSs-BN-5bi" id="BOA-5i-ed4"/>
+                <outlet property="todoLabel" destination="H64-WF-hbj" id="gru-0t-93q"/>
+            </connections>
+            <point key="canvasLocation" x="62.5" y="90"/>
+        </tableViewCell>
+    </objects>
+</document>
