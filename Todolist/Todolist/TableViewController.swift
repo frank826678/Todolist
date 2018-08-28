@@ -10,9 +10,14 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    //var contentArray = [String]()
-    var dataManager = TextInputViewController() //delegate 重要
+    // UITableViewController : UIViewController, UITableViewDelegate, UITableViewDataSource
     
+    //不能拉在另外一頁 why ? 下面暫時沒用到 用另外一個判斷式
+    @IBOutlet weak var myNavigationItem: UINavigationItem!
+    
+    //var dataManager: TextInputViewController = TextInputViewController() //delegate 重要
+    
+    //var contentArray = [String]()
     var contentArray = ["2","3","444"]
     
     override func viewDidLoad() {
@@ -22,7 +27,11 @@ class TableViewController: UITableViewController {
         
         tableView.register(uiNib, forCellReuseIdentifier: "frankCell")
         
-        dataManager.delegate = self //delegate 重要
+        //dataManager.delegate = self //delegate 重要
+        
+        //print("好", ObjectIdentifier(dataManager))
+        
+        //dataManagerB.delegate
     }
 
     override func didReceiveMemoryWarning() {
@@ -84,18 +93,36 @@ class TableViewController: UITableViewController {
     @objc func buttonClicked(sender: UIButton) {
         
         //let buttonRow = sender.tag
-        
+        //換頁成功 由 storyboard 拉 segue 並且下面名稱與外面一樣
         self.performSegue(withIdentifier: "EditPage", sender: sender.tag)
+        print("目前狀況\(sender)")
+        //myNavigationItem.title = "EditPage"
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let tag = sender as! Int
-        let controller = segue.destination as! TextInputViewController
         
-        //controller.textInput.text = contentArray[tag]
-        controller.textFromHomePage = contentArray[tag]
+        if segue.identifier == "EditPage" {
+            
+            let tag = sender as! Int
+            let controller = segue.destination as! TextInputViewController
+            
+            controller.delegate = self
+            //dataManager.delegate = self
+            print("壞", ObjectIdentifier(controller))
+            
+            //controller.textInput.text = contentArray[tag]
+            controller.textFromHomePage = contentArray[tag]
+            
+            //controller.movieDetail = movieArray[tag]
+        }
+        else {
+            let controller = segue.destination as! TextInputViewController
+            
+            controller.delegate = self
+        }
         
-        //controller.movieDetail = movieArray[tag]
+        
+        
     }
     
     /*
@@ -161,6 +188,7 @@ extension TableViewController: DataEnterDelegate {
         
         contentArray.append(info)
         
+        print("VC1的\(contentArray)")
         self.tableView.reloadData()
     }
  

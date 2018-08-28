@@ -13,10 +13,12 @@ class TextInputViewController: UIViewController {
     var textInputArray = [String]()
     var textFromHomePage = ""
     //var textInputArray: [String] = []
+    //@IBOutlet weak var myNavigationItem: UIView!
     
     //var editMovie = MovieDetail() //第一頁傳值過來
     
     weak var delegate: DataEnterDelegate?
+    //weak var delegate: TableViewController?
     
     @IBOutlet weak var textInput: UITextField!
     @IBOutlet weak var saveButton: UIButton!
@@ -39,6 +41,9 @@ class TextInputViewController: UIViewController {
         if textFromHomePage != "" {
             textInput.text = textFromHomePage
         }
+        
+        changeTitle()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -57,11 +62,22 @@ class TextInputViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func changeTitle() {
+        if textFromHomePage != "" {
+            self.title = "EditPage"
+        }
+        else {
+            self.title = "AddPage"
+        }
+    }
 
 }
 
 protocol DataEnterDelegate: AnyObject{
     
     func userDidEnterInformation(info:String)
+    
+    func newCreateNewComment(info:String)
     
 }
