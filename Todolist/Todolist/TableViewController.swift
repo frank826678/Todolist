@@ -20,6 +20,8 @@ class TableViewController: UITableViewController {
     //var contentArray = [String]()
     var contentArray = ["2","3","444"]
     
+    var nowIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -87,7 +89,10 @@ class TableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        tableView.estimatedRowHeight = 100 //這樣初次載入會跑比較快
         return UITableViewAutomaticDimension
+    
     }
     
     @objc func buttonClicked(sender: UIButton) {
@@ -104,6 +109,7 @@ class TableViewController: UITableViewController {
         if segue.identifier == "EditPage" {
             
             let tag = sender as! Int
+            nowIndex = tag //把目前選到的ＥＤＩＴ 放到全域去準備使用
             let controller = segue.destination as! TextInputViewController
             
             controller.delegate = self
@@ -183,11 +189,21 @@ class TableViewController: UITableViewController {
 }
 
 extension TableViewController: DataEnterDelegate {
-    
-    func userDidEnterInformation(info: String) {
+    func newCreateNewComment(info: String) {
         
         contentArray.append(info)
         
+        print("VC1的\(contentArray)")
+        self.tableView.reloadData()
+    }
+    
+    
+    func userDidEnterInformation(info: String) {
+        
+        //tableView.cellForRow(at: IndexPath)
+        
+        contentArray.remove(at: nowIndex)
+        contentArray.insert(info, at: nowIndex)
         print("VC1的\(contentArray)")
         self.tableView.reloadData()
     }

@@ -20,19 +20,40 @@ class TextInputViewController: UIViewController {
     weak var delegate: DataEnterDelegate?
     //weak var delegate: TableViewController?
     
+    var chooseType: ChooseType = ChooseType.add //OK
+    
     @IBOutlet weak var textInput: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
     @IBAction func saveButtonClick(_ sender: UIButton) {
         
-        guard let createContext = textInput.text else { return }
-        textInputArray.append(createContext)
         
-        delegate?.userDidEnterInformation(info: createContext)
+        //guard let createContext = textInput.text else { return }
         
-        print("現在 array的東西\(textInputArray)")
-        textInput.text = ""
+        //textInputArray.append(createContext)
+        //delegate?.userDidEnterInformation(info: createContext)
+
+        //print("現在 array的東西\(textInputArray)")
+
         
+//        if textInput.text == "" {
+//
+//        } else {
+//
+//
+//        }
+        
+        switch chooseType {
+            
+        case .Edit:
+            delegate?.userDidEnterInformation(info: textInput.text!) //.text後 要求補驚嘆號或問號
+        case .add:
+            delegate?.newCreateNewComment(info: textInput.text!) //delegate後自動補問號,.text後 要求補驚嘆號或問號
+        //textInput.text = ""
+        }
+        
+        //加一個推回去的 func
+        navigationController?.popViewController(animated: true)
     }
     override func viewDidLoad() {
         
@@ -40,6 +61,7 @@ class TextInputViewController: UIViewController {
         
         if textFromHomePage != "" {
             textInput.text = textFromHomePage
+            chooseType = .Edit  //改變目前狀態
         }
         
         changeTitle()
@@ -66,6 +88,7 @@ class TextInputViewController: UIViewController {
     func changeTitle() {
         if textFromHomePage != "" {
             self.title = "EditPage"
+            
         }
         else {
             self.title = "AddPage"
@@ -80,4 +103,11 @@ protocol DataEnterDelegate: AnyObject{
     
     func newCreateNewComment(info:String)
     
+}
+
+enum ChooseType: String {
+    
+    case add = "Add"
+    case Edit = "Edit"
+
 }
