@@ -17,8 +17,7 @@ class TextInputViewController: UIViewController {
     
     //var textInputArray: [String] = [] 和上面的差別是？
     //@IBOutlet weak var myNavigationItem: UIView!
-    //var editMovie = MovieDetail() //第一頁傳值過來
-    
+     
     var chooseType: ChooseType = ChooseType.add //OK
     
     @IBOutlet weak var textInput: UITextField!
