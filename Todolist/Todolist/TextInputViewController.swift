@@ -15,10 +15,6 @@ class TextInputViewController: UIViewController {
     //var textInputArray: [String] = [] 和上面的差別是？
     
     //@IBOutlet weak var myNavigationItem: UIView!
-    //var editMovie = MovieDetail() //第一頁傳值過來
-    
-    weak var delegate: DataEnterDelegate?
-    //weak var delegate: TableViewController?
     
     var chooseType: ChooseType = ChooseType.add //OK
     
@@ -28,7 +24,7 @@ class TextInputViewController: UIViewController {
     @IBAction func saveButtonClick(_ sender: UIButton) {
         
         
-        //guard let createContext = textInput.text else { return }
+        guard let createContext = textInput.text else { return }
         
         //textInputArray.append(createContext)
         //delegate?.userDidEnterInformation(info: createContext)
@@ -37,14 +33,29 @@ class TextInputViewController: UIViewController {
         
         //if else 來判斷有沒有值的話不行 Edit add 按下去的瞬間都有值
         
+        //let notificationName = Notification.Name("psssData")
+        
         switch chooseType {
-            
+
         case .Edit:
-            delegate?.userDidEnterInformation(info: textInput.text!) //.text後 要求補驚嘆號或問號
+            
+            NotificationCenter.default.post(name: .pass, object: nil, userInfo: ["status": "editData", "textInput": createContext ])
         case .add:
-            delegate?.newCreateNewComment(info: textInput.text!) //delegate後自動補問號,.text後 要求補驚嘆號或問號, Ans: delegate 是一個 optional
-        //textInput.text = ""
+            
+            NotificationCenter.default.post(name: .pass, object: nil, userInfo: ["status": "addData", "textInput": createContext ])
+            //NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["status": "addData", "textInput": createContext ]) 原本
+            
+                   //textInput.text = ""
         }
+        
+//        if editContentCreatGoalVC == nil{
+//            let notificationName = Notification.Name("dataUpdated")
+//            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["goalText":goalTextView.text])
+//        }else{
+//            let notificationName = Notification.Name("editUpdated")
+//            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["editText":goalTextView.text])
+//        }
+//        dismissDetail()
         
         //加一個推回去的 func
         navigationController?.popViewController(animated: true)
@@ -80,17 +91,18 @@ class TextInputViewController: UIViewController {
 
 }
 
-protocol DataEnterDelegate: AnyObject{
-    
-    func userDidEnterInformation(info:String)
-    
-    func newCreateNewComment(info:String)
-    
-}
 
 enum ChooseType: String {
     
     case add = "Add"
     case Edit = "Edit"
 
+}
+
+extension Notification.Name {
+    
+    static let pass = Notification.Name("pass")
+    static let edit = Notification.Name("edit")
+    static let add = Notification.Name("add")
+    
 }

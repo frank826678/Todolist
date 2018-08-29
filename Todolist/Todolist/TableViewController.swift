@@ -15,8 +15,6 @@ class TableViewController: UITableViewController {
     //不能拉在另外一頁 why ? 下面暫時沒用到 用另外一個判斷式
     @IBOutlet weak var myNavigationItem: UINavigationItem!
     
-    //var dataManager: TextInputViewController = TextInputViewController() //delegate 重要, 不能放在這裡 產生的是不同的 記憶體位置也不同
-    
     //var contentArray = [String]() 初始值是空的
     var contentArray = ["1","223","333444","第四筆資料"]
     
@@ -29,13 +27,29 @@ class TableViewController: UITableViewController {
         
         tableView.register(uiNib, forCellReuseIdentifier: "frankCell")
         
-        //dataManager.delegate = self //delegate 不能放在這裡
+         //let notificationName = Notification.Name("psssData")
         
-        //print("好", ObjectIdentifier(dataManager)) 印出記憶體位置
-        
-        //dataManagerB.delegate 看似相同 其實不同 是另外一個Manager
+        NotificationCenter.default.addObserver(self, selector: #selector(dataProccess(notifi:)), name: .pass, object: nil)
     }
 
+    @objc func dataProccess(notifi:Notification) {
+        let status = notifi.userInfo!["status"] as! String
+        let passData = notifi.userInfo!["textInput"] as! String
+        if status == "addData" {
+            
+            contentArray.append(passData)
+            
+        } else {
+            
+            contentArray[nowIndex] = passData
+            //contentArray.remove(at: nowIndex)
+            //contentArray.insert(info, at: nowIndex)
+            
+        }
+        print("VC1的\(contentArray)")
+        self.tableView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -118,9 +132,7 @@ class TableViewController: UITableViewController {
             nowIndex = tag //把目前選到的ＥＤＩＴ 放到全域去準備使用
             let controller = segue.destination as! TextInputViewController
             
-            controller.delegate = self
-            //dataManager.delegate = self
-            print("壞", ObjectIdentifier(controller))
+            //print("壞", ObjectIdentifier(controller))
             
             //controller.textInput.text = contentArray[tag]
             controller.textFromHomePage = contentArray[tag]
@@ -131,30 +143,30 @@ class TableViewController: UITableViewController {
             
             let controller = segue.destination as! TextInputViewController
             
-            controller.delegate = self
+           
         
         }
     }
 }
 
-extension TableViewController: DataEnterDelegate {
-    
-    func newCreateNewComment(info: String) {
-        
-        contentArray.append(info)
-        
-        print("VC1的\(contentArray)")
-        self.tableView.reloadData()
-        
-    }
-    
-    
-    func userDidEnterInformation(info: String) {
-        
-        contentArray.remove(at: nowIndex)
-        contentArray.insert(info, at: nowIndex)
-        print("VC1的\(contentArray)")
-        self.tableView.reloadData()
-        
-    }
-}
+//extension TableViewController: DataEnterDelegate {
+//    
+//    func newCreateNewComment(info: String) {
+//        
+//        contentArray.append(info)
+//        
+//        print("VC1的\(contentArray)")
+//        self.tableView.reloadData()
+//        
+//    }
+//    
+//    
+//    func userDidEnterInformation(info: String) {
+//        
+//        contentArray.remove(at: nowIndex)
+//        contentArray.insert(info, at: nowIndex)
+//        print("VC1的\(contentArray)")
+//        self.tableView.reloadData()
+//        
+//    }
+//}
