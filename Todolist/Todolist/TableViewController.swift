@@ -20,7 +20,7 @@ class TableViewController: UITableViewController {
     //var contentArray = [String]() 初始值是空的
     var contentArray = ["1","223","333444","第四筆資料"]
     
-    var nowIndex = 0
+    var nowIndex : Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +29,8 @@ class TableViewController: UITableViewController {
         
         tableView.register(uiNib, forCellReuseIdentifier: "frankCell")
         
-        //dataManager.delegate = self //delegate 不能放在這裡
-        
         //print("好", ObjectIdentifier(dataManager)) 印出記憶體位置
         
-        //dataManagerB.delegate 看似相同 其實不同 是另外一個Manager
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,43 +115,43 @@ class TableViewController: UITableViewController {
             nowIndex = tag //把目前選到的ＥＤＩＴ 放到全域去準備使用
             let controller = segue.destination as! TextInputViewController
             
-            controller.delegate = self
-            //dataManager.delegate = self
-            print("壞", ObjectIdentifier(controller))
+            //print("壞", ObjectIdentifier(controller))
             
             //controller.textInput.text = contentArray[tag]
             controller.textFromHomePage = contentArray[tag]
             
             //controller.movieDetail = movieArray[tag]
+            
+            //KVO
+            controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
+
+            
         }
         else {
             
             let controller = segue.destination as! TextInputViewController
-            
-            controller.delegate = self
+            controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
         
         }
     }
-}
+    
+    //KVO
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        guard let change = change else { return }
+        
+        if let data = change[NSKeyValueChangeKey.newKey] as? String {
+            
+            if let index = nowIndex {
+                contentArray[index] = data
+                nowIndex = nil
+                self.tableView.reloadData()
 
-extension TableViewController: DataEnterDelegate {
-    
-    func newCreateNewComment(info: String) {
-        
-        contentArray.append(info)
-        
-        print("VC1的\(contentArray)")
-        self.tableView.reloadData()
-        
-    }
-    
-    
-    func userDidEnterInformation(info: String) {
-        
-        contentArray.remove(at: nowIndex)
-        contentArray.insert(info, at: nowIndex)
-        print("VC1的\(contentArray)")
-        self.tableView.reloadData()
-        
+            } else {
+                contentArray.append(data)
+                self.tableView.reloadData()
+            }
+            
+        }
     }
 }
