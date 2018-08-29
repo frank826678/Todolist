@@ -27,7 +27,6 @@ class TextInputViewController: UIViewController {
         guard let createContext = textInput.text else { return }
         
         //textInputArray.append(createContext)
-        //delegate?.userDidEnterInformation(info: createContext)
 
         //print("現在 array的東西\(textInputArray)")
         
@@ -47,16 +46,6 @@ class TextInputViewController: UIViewController {
             
                    //textInput.text = ""
         }
-        
-//        if editContentCreatGoalVC == nil{
-//            let notificationName = Notification.Name("dataUpdated")
-//            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["goalText":goalTextView.text])
-//        }else{
-//            let notificationName = Notification.Name("editUpdated")
-//            NotificationCenter.default.post(name: notificationName, object: nil, userInfo: ["editText":goalTextView.text])
-//        }
-//        dismissDetail()
-        
         //加一個推回去的 func
         navigationController?.popViewController(animated: true)
     }

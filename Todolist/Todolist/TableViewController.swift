@@ -141,32 +141,8 @@ class TableViewController: UITableViewController {
         }
         else {
             
-            let controller = segue.destination as! TextInputViewController
+            //let controller = segue.destination as! TextInputViewController
             
-           
-        
         }
     }
 }
-
-//extension TableViewController: DataEnterDelegate {
-//    
-//    func newCreateNewComment(info: String) {
-//        
-//        contentArray.append(info)
-//        
-//        print("VC1的\(contentArray)")
-//        self.tableView.reloadData()
-//        
-//    }
-//    
-//    
-//    func userDidEnterInformation(info: String) {
-//        
-//        contentArray.remove(at: nowIndex)
-//        contentArray.insert(info, at: nowIndex)
-//        print("VC1的\(contentArray)")
-//        self.tableView.reloadData()
-//        
-//    }
-//}
