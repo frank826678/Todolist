@@ -12,9 +12,9 @@ class TextInputViewController: UIViewController {
     
     var textInputArray = [String]()
     var textFromHomePage = ""
-    //var textInputArray: [String] = []
-    //@IBOutlet weak var myNavigationItem: UIView!
+    //var textInputArray: [String] = [] 和上面的差別是？
     
+    //@IBOutlet weak var myNavigationItem: UIView!
     //var editMovie = MovieDetail() //第一頁傳值過來
     
     weak var delegate: DataEnterDelegate?
@@ -34,21 +34,15 @@ class TextInputViewController: UIViewController {
         //delegate?.userDidEnterInformation(info: createContext)
 
         //print("現在 array的東西\(textInputArray)")
-
         
-//        if textInput.text == "" {
-//
-//        } else {
-//
-//
-//        }
+        //if else 來判斷有沒有值的話不行 Edit add 按下去的瞬間都有值
         
         switch chooseType {
             
         case .Edit:
             delegate?.userDidEnterInformation(info: textInput.text!) //.text後 要求補驚嘆號或問號
         case .add:
-            delegate?.newCreateNewComment(info: textInput.text!) //delegate後自動補問號,.text後 要求補驚嘆號或問號
+            delegate?.newCreateNewComment(info: textInput.text!) //delegate後自動補問號,.text後 要求補驚嘆號或問號, Ans: delegate 是一個 optional
         //textInput.text = ""
         }
         
@@ -73,17 +67,6 @@ class TextInputViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     func changeTitle() {
         if textFromHomePage != "" {
