@@ -122,36 +122,69 @@ class TableViewController: UITableViewController {
             
             //controller.movieDetail = movieArray[tag]
             
+            controller.completionHandler = { dataFromVC2 in
+                
+                self.saveData(passData: dataFromVC2)
+                
+            }
             //KVO
-            controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
+            //controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
 
             
         }
         else {
             
             let controller = segue.destination as! TextInputViewController
-            controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
-        
+            //controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
+            controller.completionHandler = { dataFromVC2 in
+                
+                self.saveData(passData: dataFromVC2)
+                
+            }
         }
     }
     
     //KVO
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//
+//        guard let change = change else { return }
+//
+//        if let data = change[NSKeyValueChangeKey.newKey] as? String {
+//
+//            if let index = nowIndex {
+//                contentArray[index] = data
+//                nowIndex = nil
+//                self.tableView.reloadData()
+//
+//            } else {
+//                contentArray.append(data)
+//                self.tableView.reloadData()
+//            }
+//
+//        }
+//    }
+    
+    func saveData(passData: String) {
         
-        guard let change = change else { return }
+//        guard todoItem != "" else {
+//
+//            showToast()
+//
+//            return
+//        }
         
-        if let data = change[NSKeyValueChangeKey.newKey] as? String {
+        if let index = nowIndex {
             
-            if let index = nowIndex {
-                contentArray[index] = data
-                nowIndex = nil
-                self.tableView.reloadData()
-
-            } else {
-                contentArray.append(data)
-                self.tableView.reloadData()
-            }
+            contentArray[index] = passData
             
+            nowIndex = nil
+            
+        } else {
+            
+            contentArray.append(passData)
         }
+        
+        self.tableView.reloadData()
     }
+    
 }

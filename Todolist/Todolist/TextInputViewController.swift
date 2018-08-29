@@ -20,6 +20,9 @@ class TextInputViewController: UIViewController {
      
     var chooseType: ChooseType = ChooseType.add //OK
     
+    //closue
+    var completionHandler: ((String) -> Void)?
+    
     @IBOutlet weak var textInput: UITextField!
     @IBOutlet weak var saveButton: UIButton!
     
@@ -27,6 +30,9 @@ class TextInputViewController: UIViewController {
         
         infoInput =  textInput.text
         
+        //closure
+        //completionHandler?(infoInput ?? "")
+        completionHandler!(infoInput!)
         //加一個推回去的 func
         navigationController?.popViewController(animated: true)
     }
