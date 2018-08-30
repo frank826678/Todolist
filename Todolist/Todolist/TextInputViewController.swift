@@ -15,9 +15,6 @@ class TextInputViewController: UIViewController {
     
     @objc dynamic var infoInput: String?
     
-    //var textInputArray: [String] = [] 和上面的差別是？
-    //@IBOutlet weak var myNavigationItem: UIView!
-     
     var chooseType: ChooseType = ChooseType.add //OK
     
     //closue
@@ -35,6 +32,7 @@ class TextInputViewController: UIViewController {
         completionHandler!(infoInput!)
         //加一個推回去的 func
         navigationController?.popViewController(animated: true)
+        
     }
     override func viewDidLoad() {
         

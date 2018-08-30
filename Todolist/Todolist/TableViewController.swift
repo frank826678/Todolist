@@ -9,13 +9,9 @@
 import UIKit
 
 class TableViewController: UITableViewController {
-    
-    // UITableViewController : UIViewController, UITableViewDelegate, UITableViewDataSource
-    
+
     //不能拉在另外一頁 why ? 下面暫時沒用到 用另外一個判斷式
     @IBOutlet weak var myNavigationItem: UINavigationItem!
-    
-    //var dataManager: TextInputViewController = TextInputViewController() //delegate 重要, 不能放在這裡 產生的是不同的 記憶體位置也不同
     
     //var contentArray = [String]() 初始值是空的
     var contentArray = ["1","223","333444","第四筆資料"]
@@ -77,20 +73,6 @@ class TableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        //推開畫面用 這邊沒用到
-        
-        //let selectedMessage = contentArray[indexPath.row]
-        
-//        navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
-        
-//        let detailViewController = DetailViewController.detailViewControllerForProduct(selectedArticle)
-//
-//        navigationController?.pushViewController(detailViewController, animated: true)
-        
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         tableView.estimatedRowHeight = 100 //這樣初次載入會跑比較快
@@ -120,17 +102,11 @@ class TableViewController: UITableViewController {
             //controller.textInput.text = contentArray[tag]
             controller.textFromHomePage = contentArray[tag]
             
-            //controller.movieDetail = movieArray[tag]
-            
             controller.completionHandler = { dataFromVC2 in
                 
                 self.saveData(passData: dataFromVC2)
                 
             }
-            //KVO
-            //controller.addObserver(self, forKeyPath: "infoInput", options: .new, context: nil)
-
-            
         }
         else {
             
@@ -144,34 +120,7 @@ class TableViewController: UITableViewController {
         }
     }
     
-    //KVO
-//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//
-//        guard let change = change else { return }
-//
-//        if let data = change[NSKeyValueChangeKey.newKey] as? String {
-//
-//            if let index = nowIndex {
-//                contentArray[index] = data
-//                nowIndex = nil
-//                self.tableView.reloadData()
-//
-//            } else {
-//                contentArray.append(data)
-//                self.tableView.reloadData()
-//            }
-//
-//        }
-//    }
-    
     func saveData(passData: String) {
-        
-//        guard todoItem != "" else {
-//
-//            showToast()
-//
-//            return
-//        }
         
         if let index = nowIndex {
             
